@@ -3,8 +3,6 @@
  */
 
 var _ = require('lodash');
-var mongoose = require('mongoose');
-
 
 
 /**
@@ -48,7 +46,14 @@ module.exports = function (sails) {
 
     },
 
-
+    /**
+     * buildMongoose()
+     *
+     * @type {Function}
+     */
+    buildMongoose: function() {
+        return require('mongoose');
+    },
 
     /**
      * configure()
@@ -118,7 +123,7 @@ module.exports = function (sails) {
         // Expose `sails.mongoose`.
         // (note that it's important to do this _before_ the other stuff below so that it is accessible for use in custom
         //  `constructSchema` interceptor functions, in case any of those are being used)
-        sails.mongoose = mongoose;
+        sails.mongoose = buildMongoose();
 
 
         // Connect to the configured database using Mongoose.
