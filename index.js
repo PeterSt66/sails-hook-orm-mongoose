@@ -40,20 +40,19 @@ module.exports = function (sails) {
 
         // These optional connection options are passed in to mongoose when `.connect()` is called.
         // See http://mongoosejs.com/docs/connections.html for a full list of available options.
-        connectionOpts: {}
+        connectionOpts: {},
 
-      }
+        /**
+         * buildMongoose()
+         *
+         * @type {Function}
+         */
+        buildMongoose: function() {
+            return require('mongoose');
+        }
 
     },
 
-    /**
-     * buildMongoose()
-     *
-     * @type {Function}
-     */
-    buildMongoose: function() {
-        return require('mongoose');
-    },
 
     /**
      * configure()
@@ -123,7 +122,7 @@ module.exports = function (sails) {
         // Expose `sails.mongoose`.
         // (note that it's important to do this _before_ the other stuff below so that it is accessible for use in custom
         //  `constructSchema` interceptor functions, in case any of those are being used)
-        sails.mongoose = buildMongoose();
+        sails.mongoose = sails.config.mongoose.buildMongoose();
 
 
         // Connect to the configured database using Mongoose.
